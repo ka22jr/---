@@ -1,0 +1,48 @@
+{
+  "name": "pharmacy-respiratory",
+  "version": "1.0.0",
+  "description": "صيدلية الجهاز التنفسي - نظام إدارة الصيدلية",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64",
+    "build-portable": "electron-builder --win portable --x64"
+  },
+  "build": {
+    "appId": "com.pharmacy.respiratory",
+    "productName": "صيدلية الجهاز التنفسي",
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerLanguages": ["ar"],
+      "language": "1025",
+      "installerHeaderIcon": "assets/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "صيدلية الجهاز التنفسي",
+      "uninstallDisplayName": "صيدلية الجهاز التنفسي"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      { "from": "assets/", "to": "assets/" }
+    ]
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3"
+  },
+  "devDependencies": {
+    "electron": "^29.1.0",
+    "electron-builder": "^24.13.3"
+  }
+}
