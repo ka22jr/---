@@ -3,59 +3,40 @@
   "version": "1.0.0",
   "description": "صيدلية الجهاز التنفسي - نظام إدارة الصيدلية",
   "main": "src/main.js",
-  "homepage": "./",
   "scripts": {
     "start": "electron .",
-    "dev": "electron .",
     "build": "electron-builder --win --x64",
-    "build-portable": "electron-builder --win portable --x64",
-    "build-installer": "electron-builder --win nsis --x64"
+    "build-portable": "electron-builder --win portable --x64"
   },
   "build": {
     "appId": "com.pharmacy.respiratory",
     "productName": "صيدلية الجهاز التنفسي",
-    "directories": {
-      "buildResources": "assets"
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerLanguages": ["ar"],
+      "language": "1025",
+      "installerHeaderIcon": "assets/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "صيدلية الجهاز التنفسي",
+      "uninstallDisplayName": "صيدلية الجهاز التنفسي"
     },
     "files": [
       "src/**/*",
       "assets/**/*",
       "node_modules/**/*"
     ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "assets/icon.ico",
-      "certificateFile": null,
-      "signingHashAlgorithms": [
-        "sha256"
-      ]
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "صيدلية الجهاز التنفسي",
-      "uninstallDisplayName": "صيدلية الجهاز التنفسي",
-      "installerIcon": "assets/icon.ico",
-      "uninstallerIcon": "assets/icon.ico"
-    },
-    "portable": {
-      "artifactName": "${productName}-Setup.exe"
-    }
+    "extraResources": [
+      { "from": "assets/", "to": "assets/" }
+    ]
   },
   "dependencies": {
     "better-sqlite3": "^9.4.3"
